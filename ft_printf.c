@@ -11,9 +11,9 @@ int	handle_format(char format, va_list args)
 	else if (format == 'u')
 		return (ft_putunbr(va_arg(args, unsigned int)));
 	else if (format == 'x')
-		return (ft_puthex(va_arg(args, unsigned int), 'x'));
+		return (ft_puthex((unsigned long)va_arg(args, unsigned int), 'x'));
 	else if (format == 'X')
-		return (ft_puthex(va_arg(args, unsigned int), 'X'));
+		return (ft_puthex((unsigned long)va_arg(args, unsigned int), 'X'));
 	else if (format == 'p')
 		return (ft_putptr(va_arg(args, void *)));
 	else if (format == '%')
@@ -34,17 +34,12 @@ int	ft_printf(const char *format, ...)
 	va_start(args, format);
 	while (format[i])
 	{
-		if (format[i] == '%')
-		{
-			i++;
-			printed_chars += handle_format(format[i], args);
-		}
+		if (format[i] == '%' && format[i + 1])
+			printed_chars += handle_format(format[++i], args);
 		else
-		{
-			write(1, &format[i], 1);
-			printed_chars++;
-		}
+			printed_chars += write(1, &format[i], 1);
 		i++;
 	}
+	va_end(args);
 	return (printed_chars);
 }

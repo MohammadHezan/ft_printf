@@ -1,12 +1,9 @@
-SRC = ft_printf.c 
-SRC_PUTS = $(addprefix puts/, ft_putchar.c ft_putstr.c ft_putnbr.c \
-		   ft_putunbr.c ft_puthex.c ft_putptr.c)
-OBJS := $(SRC:%.c=%.o)
-OBJS += $(SRC_PUTS:puts/%.c=puts/%.o)
+SRC = ft_printf.c ft_putchar.c ft_putstr.c ft_putnbr.c ft_puthex.c ft_putptr.c ft_putunbr.c
+OBJS := $(SRC:.c=.o)
 NAME = libftprintf.a
 
 %.o: %.c
-	cc -I. -Werror -Wall -Wextra -o $@ -c $?
+	cc -I. -Werror -Wall -Wextra -c $< -o $@
 
 all: $(NAME)
 

@@ -1,4 +1,4 @@
-#include "../ft_printf.h"
+#include "ft_printf.h"
 
 int	ft_putunbr(unsigned int nb)
 {
@@ -6,12 +6,7 @@ int	ft_putunbr(unsigned int nb)
 
 	count = 0;
 	if (nb >= 10)
-	{
 		count += ft_putnbr(nb / 10);
-		count += ft_putnbr(nb % 10);
-	}
-	else
-		count += ft_putchar(nb + '0');
+	count += ft_putchar((nb % 10) + '0');
 	return (count);
-
 }
